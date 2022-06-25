@@ -1,0 +1,101 @@
+0. Підготовка.
+Запускаїмо проект в Пайчарм
+Добавимо модулі в пайчарм
+Первый пакет – Autopep8
+
+Тепер його добавимо в настройках
+Name: Autopep8
+Program: autopep8
+Arguments: --in-place --aggressive --aggressive "$FilePath$"
+Working directory: $ProjectFileDir$
+Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
+
+plagin
+pylint
+github copilot
+
+
+Качаємо постгрес, і встановлюємо субд в окреме місце,, на диск д чи інший.
+установимо логін та пароль, а також порт сервера (за замовчуваням 5432)
+
+Выберем нашу базу данных и откроем для нее запросный лист.
+Давайте выполним следующий блок запросов:  --- переглянюти обовязково, не вірні данні!!!
+CREATE USER prj_user with NOSUPERUSER PASSWORD 'password_user';
+GRANT ALL PRIVILEGES ON DATABASE name_db TO name_user;
+
+ALTER ROLE prj_user SET CLIENT_ENCODING TO 'UTF8';
+ALTER ROLE prj_user SET default_transaction_isolation TO 'READ COMMITTED';
+ALTER ROLE prj_user SET TIME ZONE 'Europe/Kiev'
+Это SQL-запросы, отвечающие за создание нового пользователя, настройку привилегий доступа пользователя к базе. Также мы определяем такие параметры подключения, как кодировка, уровень изоляции транзакций, временная зона:
+
+
+1. створимо в прогі постгрес користувача та базу даних.
+ та підключимо базу даних в пайчарм.
+ в настройках settings.py такі налаштування :
+
+ DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+
+2. установка пакету psycopg2
+3.  python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver
+
+4. settings.py
+LANGUAGE_CODE = 'uk-UA'
+TIME ZONE 'Europe/Kiev'
+
+5. добавимо папки templates, static та media в проект
+пропишемо налашьтування для папок templates, static та media в файлі settings.py
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+в url пропишемо налаштування для папок  static
+from django.contrib import admin
+from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
+from shop import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+
+
+////////////////////////////////////////////
+Якщо в нас не створено ні одного додатку, то в терміналі виконати команду:
+python manage.py startapp mainapp
+# mainapp - це його назва.
+
+в INSTALLED_APPS = [
+    'shop.apps.ShopConfig',
+////////////////////////////////////////////
+
+додаємо бібліотеку pillow в проект
+Заповнюємо поля в моделі даних (класс моделі) в models.py
+збережемо модель в базу даних
+python manage.py makemigrations
+python manage.py migrate
+
+Далі пишемо контроллери для нашого проекту (функції контролерів або класи) в views.py

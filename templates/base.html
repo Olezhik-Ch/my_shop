@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content=" "/>
+    <!-- Title -->
+    <title>{% block title %} Home titl {% endblock %}</title>
+    <meta name="keywords" content="{% block keywords %} Home key {% endblock %}" />
+    <meta name="description" content="{% block description %} Home desk {% endblock %}" />
+    <!-- Favicon  -->
+    <link rel="shortcut icon" href="{% static 'images/fevicon.png' %}"/>
+
+    <!-- *********** CSS Files *********** -->
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}"/>
+    <!-- Styles CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
+
+{% block head %}
+{% endblock %}
+
+</head>
+<body class="template-index home-version-3">
+
+{% include 'header.html' %}
+
+
+{% block content %}
+    content
+{% endblock %}
+
+
+{% include 'footer.html' %}
+
+
+
+</body>
+</html>
+
